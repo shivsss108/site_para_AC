@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OptiView Tech</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="optiview-tech">OptiView Tech</div>
+        <div id="imagePreview" style="display: none;">
+            <img src="" alt="Imagem Selecionada" id="selectedImage" style="max-width: 100%; height: auto; border-radius: 8px;">
+            <button type="button" id="removeImageButton">Remover Imagem</button>
+        </div>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="arquivos" id="imageInput" accept="image/png, image/jpeg">
+            <button type="submit">Enviar Imagem</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('imageInput').addEventListener('change', function(event) {
+            if (event.target.files && event.target.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var imagePreview = document.getElementById('imagePreview');
+                    var selectedImage = document.getElementById('selectedImage');
+                    selectedImage.src = e.target.result;
+                    imagePreview.style.display = 'flex';
+                }
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        });
+    </script>
+</body>
+</html>
